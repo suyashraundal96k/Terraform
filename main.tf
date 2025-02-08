@@ -7,15 +7,24 @@ terraform {
   }
 }
 provider "aws" {
-   region = "ap-south-1"
+  region = var.my_region
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 resource "aws_instance" "myec2" {
-
-     ami = "ami-00bb6a80f01f03502"
-     instance_type = "t2.micro"
-     count = 2
-     tags = {
-        Name = "myinstance ${count.index+1}"
-       
+  ami           = var.my_ami
+  instance_type = "t2.micro"
+  tags = {
+    Name = "myinstance "
   }
+}
+variable "my_region" {
+   type = string
+  default = "ap-south-1"
+}
+variable "access_key" { }
+variable "secret_key" { }
+variable "my_ami" {
+   type = string
+   default = "ami-0c50b6f7dc3701ddd"
 }
